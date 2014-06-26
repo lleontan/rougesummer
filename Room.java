@@ -12,13 +12,13 @@ public class Room extends cosmeticSprite{
 	public int health,oxy,oxyChange;
 	public int disabled=0;		//
 	public int fireLevel=0;		//amount of fire in a room
-	public int localXCoord,localYCoord;	//coords within the ship
 	public int tileWidth=1,tileHeight=1;	//size in tiles
 	public ArrayList<int[]> doorTiles;
-	public Room(){}
+	
 	public Room(int localXCoord, int localYCoord,int tileWidth,int tileHeight){
-		this.localXCoord=localXCoord;
-		this.localYCoord=localYCoord;
+		this.useCoords=true;
+		this.xCoord=localXCoord;
+		this.yCoord=localYCoord;
 		this.tileWidth=tileWidth;
 		this.tileHeight=tileHeight;
 	}

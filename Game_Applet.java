@@ -88,8 +88,8 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 
 				for(int a=0;a<roomnum;a++){
 					
-					int localx=rooms.get(a).localXCoord;//grid point in ship
-					int localy=rooms.get(a).localYCoord;
+					int localx=rooms.get(a).xCoord;//grid point in ship
+					int localy=rooms.get(a).yCoord;
 					int width=rooms.get(a).tileWidth;	//grid length/height
 					int height=rooms.get(a).tileHeight;
 					Room currentRoom=rooms.get(a);
@@ -102,7 +102,28 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 					off.fillRect(currentRoom.x, currentRoom.y, currentRoom.width, currentRoom.height);;
 					off.setColor(Color.WHITE);
 				}
+				drawListInShipGrid(off,theship.unitList,b);
 		}
+		}
+	}
+	public void drawListInShipGrid(Graphics2D off, ArrayList list,int shipIndex){
+		//draws a list inside a ship, cooords, not pixels
+		int unitNum=list.size();
+		ship theship=gameController.shipList.get(shipIndex);
+		for(int a=0;a<unitNum;a++){
+			
+		int localx=((cosmeticSprite)(list.get(a))).xCoord;//grid point in ship
+		int localy=((cosmeticSprite)(list.get(a))).yCoord;
+		int width=theship.tilesize;	//grid length/height
+		int height=theship.tilesize;
+		cosmeticSprite spri=(cosmeticSprite)list.get(a);
+		
+			spri.x=localx*theship.tilesize+theship.x+theship.centerx;
+		spri.y=localy*theship.tilesize+theship.y+theship.centery;
+
+		off.setColor(Color.ORANGE);
+		off.fillOval(spri.x, spri.y, spri.width, spri.height);
+		off.setColor(Color.WHITE);
 		}
 	}
 	public void drawList(Graphics2D off, ArrayList<cosmeticSprite> list) {

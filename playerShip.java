@@ -23,5 +23,10 @@ public class playerShip extends ship{
 		this.roomArray.add(r2);
 		Room r3=new Room(8,2,4,6);
 		this.roomArray.add(r3);
+		
+		baisicUnit unit1=new baisicUnit(5,5);
+		baisicUnit unit2=new baisicUnit(6,4);
+		this.unitList.add(unit1);
+		this.unitList.add(unit2);
 	}
 }

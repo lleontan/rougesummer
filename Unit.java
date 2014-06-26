@@ -18,14 +18,14 @@ public abstract class Unit extends cosmeticSprite {
 	public int state = -1; // soldier state
 	public int moveType=1;//normal,flying,phased
 	String displayName = "IsUnit";// name displayed
-
+	
 	public long TimerExample[] = { 500, 500, 500, -1 };// 0 is timer,1 is
 														// current duration, 2
 														// is base duration, 4
 														// is the lock
 
 	public Unit() {
-
+		this.useCoords=true;
 	}
 	public abstract void executeAI();
 
