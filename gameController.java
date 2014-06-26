@@ -2,6 +2,11 @@
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.TreeMap;
+
+import javax.swing.text.html.HTMLDocument.Iterator;
 
 public class gameController {
 	long[] waveTimer = new long[3];
@@ -10,9 +15,7 @@ public class gameController {
 
 	static public ArrayList<cosmeticSprite> cosmeticList = new ArrayList<cosmeticSprite>(); // this is our arraylist of cosmetic battlefield damage(blown up trees)
 	static public ArrayList <cosmeticSprite>tempCosemeticList = new ArrayList<cosmeticSprite>(); // arraylist of temporary battle damage(bullet holes, explosions)
-	static public ArrayList<cosmeticSprite> Unitlist = new ArrayList<cosmeticSprite>();
-	static public ArrayList<cosmeticSprite> tileList = new ArrayList<cosmeticSprite>(); // arraylist of all structures, ai and player(trees, rocks, trenches)
-
+	static public ArrayList<ship> shipList=new ArrayList<ship>();		//ships, ship crews and rooms are inside the ships in this arraylist
 	public static int namecount = 0;// current name index,
 
 	public static int findListDistance(ArrayList<Unit> list, ArrayList<Unit> targetList,int unitIndex) {
@@ -34,8 +37,6 @@ public class gameController {
 		int targetlistsize = targetList.size();
 		for (int a = 0; a < targetlistsize; a++) {
 			Unit targetSol =  targetList.get(a);
-			if (targetSol.isDead == true|| targetSol.invisible_to_player == true) {}
-			else {
 				// gabe check my distance code
 				float distance = (float) (Math.sqrt(Math.pow(sol.x
 						- targetSol.x, 2)
@@ -48,13 +49,17 @@ public class gameController {
 					lowestDistance = distance;
 					lowestDistanceReference = targetSol.targetname;
 				}
-			}
+			
 		}
 		return lowestDistanceReference;
 	}
 
-	public static int findAtPoint(int xCoord,int yCoord,int direction,int length,ArrayList<cosmeticSprite> list){
-		int returnindex=-1;
+	public static boolean checkIfOccupied(int xCoord,int yCoord,int direction,int length,int shipindex){
+		boolean canMove=true;
+		
+		TreeMap map=gameController.shipList.get(shipindex).occupiedTiles;
+		Collection collect=map.values();
+		java.util.Iterator iterator=collect.iterator();
 		
 
 		if(4==direction){
@@ -69,16 +74,15 @@ public class gameController {
 		else if(3==direction){
 			xCoord=xCoord+length;
 		}
-		
-		int size=list.size();
-		for(int a=0;a<size;a++){
-			cosmeticSprite spri= list.get(a);
-			if(spri.xCoord==xCoord&&spri.yCoord==yCoord){
-				returnindex=a;
+		while(iterator.hasNext()){
+			int xy[]=(int[]) iterator.next();
+			if(xy[0]==xCoord & xy[1]==yCoord){
+				//System.out.println("invalid move");
+				canMove=false;
 				break;
 			}
 		}
-		return returnindex;
+		return canMove;
 	}
 
 	public static int getNewName() {
@@ -96,5 +100,19 @@ public class gameController {
 		// call all other methods from this
 		// Game_Applet.Instantiate( obj);
 
+	}
+
+	public static Unit findUnitAtPoint(int newxCoord, int newyCoord, int shipIndex) {
+		Unit returnVal = null;
+		ArrayList <Unit>unitList=gameController.shipList.get(shipIndex).unitList;
+		int size=unitList.size();
+		for(int a=0;a<size;a++){
+			Unit unit= unitList.get(a);
+			if(unit.xCoord==newxCoord & unit.yCoord==newyCoord){
+				returnVal=unitList.get(a);
+			}
+		}
+		return returnVal;
+		
 	}
 }

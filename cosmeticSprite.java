@@ -22,10 +22,7 @@ public class cosmeticSprite {
 	public Image altSprites[] = new Image[4];		//
 	public String altSpritesPath[] = new String[4];
 
-	public float naturalRotation = 0;
-	boolean isDead = false;
 	public float rotation = 0;
-	gameController controller;
 	public int targetname, enemytargetname;
 	public String displayname = "asdf";
 	

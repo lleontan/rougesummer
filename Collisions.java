@@ -26,7 +26,6 @@ public class Collisions {
 		for (int a = 0; a < listSize; a++) {
 			cosmeticSprite tempcos = (cosmeticSprite) checkList.get(a);
 			if (checkCollision(x, y, tempcos)) {
-				System.out.println("clicked on thing");
 				returnval = a;
 				break;// break the loop so we only select one unit
 			}

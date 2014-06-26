@@ -1,5 +1,6 @@
 
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 public abstract class Unit extends cosmeticSprite {
@@ -12,6 +13,7 @@ public abstract class Unit extends cosmeticSprite {
 	public int manaRegen=1;		//if we use mana we should have a regen per turn		
 
 	public int health = 100;
+	public int shipIndex;			//1 for player, 2 for ai
 
 	public int state = -1; // soldier state
 	public int moveType=1;//normal,flying,phased
@@ -38,12 +40,6 @@ public abstract class Unit extends cosmeticSprite {
 	public void doMove(int direction,int length) {
 		int newyCoord=this.yCoord;
 		int newxCoord=this.xCoord;
-		int unitIndex=gameController.findAtPoint(newxCoord, newyCoord, direction, length,gameController.Unitlist );
-
-		
-		if(unitIndex!=-1){
-		}
-		else if(unitIndex==-1){
 			switch(direction){
 			case 4:
 			//w a s d
@@ -58,7 +54,7 @@ public abstract class Unit extends cosmeticSprite {
 			case 1:
 				this.xCoord=this.xCoord+length;
 			break;
-		}
+		
 		}
 
 		this.x=this.xCoord*gameController.tileSize;
@@ -88,7 +84,6 @@ public abstract class Unit extends cosmeticSprite {
 			}
 		}
 
-		System.out.println("The rotation is " + theta);
 		return theta;
 	}
 
@@ -119,16 +114,9 @@ public abstract class Unit extends cosmeticSprite {
 	}
 	}
 	public void movePosition(int direction,int length){
-		int atpoint=gameController.findAtPoint(this.xCoord, this.yCoord,direction,length, gameController.tileList);
-		if(atpoint!=-1){
-			cosmeticSprite tile=gameController.tileList.get(atpoint);
-			if((this.moveType>=tile.occupytype)&&tile.isOccupied==false){
+		boolean canMove=gameController.checkIfOccupied(this.xCoord, this.yCoord,direction,length, this.shipIndex);
+		if(canMove==true){
 				doMove(direction,length);
 			}
 		}
-		else if(atpoint==-1){
-			doMove(direction,length);
-		}
-	}
-
 }

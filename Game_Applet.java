@@ -1,5 +1,4 @@
 
-
 import java.applet.Applet;
 import java.awt.Color;
 import java.awt.Font;
@@ -23,7 +22,6 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 		for (int a = 0; a < size; a++) {
 			cosmeticSprite spri =list.get(a);
 			if (spri.targetname == unitname) {
-				System.out.println("Unit Deleted");
 				list.remove(a);
 				break;
 			}
@@ -59,7 +57,6 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 									// for preformance
 		for (int a = 0; a < tempSize; a++) {
 			cosmeticSprite cos = list.get(a);// getting the transform and sprite
-			if (cos.invisible_to_player == false && cos.isDead == false) {// some enemies may be invis to player
 				
 
 				int tileSize=gameController.tileSize;
@@ -72,7 +69,6 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 					y1=cos.yCoord*tileSize;
 				}
 				
-				System.out.println(cos.targetname);
 				int height = cos.height;
 				int width = cos.width;
 				Image img = cos.defaultImage; // getting image
@@ -90,7 +86,7 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 
 				float degreesToRadians = (float) (Math.PI / 180);
 				float degreemeasure = cos.rotation;
-				degreemeasure = degreemeasure + degreesToRadians* cos.naturalRotation;
+				degreemeasure = degreemeasure + degreesToRadians;
 				newform.setToRotation(degreemeasure, cos.x + .5 * cos.width,cos.y + .5 * cos.height);
 				cos.rotation = 0;
 
@@ -98,7 +94,7 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 				newform.scale(scalex, scaley); // size rescaling
 				off.drawImage(img, newform, this);
 				// off.drawImage(img,x1, y1, this);
-			}
+			
 		}
 	}
 
@@ -235,8 +231,6 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 		Graphics2D off = (Graphics2D) offscreen.getGraphics();
 
 		drawList(off, gameController.cosmeticList);
-		drawList(off, gameController.tileList);
-		drawList(off, gameController.Unitlist);
 		// we're going to use graphics 2d to do all our painting instead of just
 		// graphics
 		/*
