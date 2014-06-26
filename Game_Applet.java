@@ -13,6 +13,7 @@ import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.List;
 public class Game_Applet extends Applet implements Runnable, KeyListener,MouseListener {
 	int windowsizex = 700; // window sizes
 	public static int windowsizey = 600;
@@ -48,10 +49,62 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 	public Game_Applet() {
 		
 	}
+	public void drawShip(Graphics2D off){
+		for(int b=0;b<gameController.shipList.size();b++){
+		ArrayList<Room> rooms=gameController.shipList.get(b).roomArray;
+		ship theship=gameController.shipList.get(b);
+		int roomnum=rooms.size();
+		
 
-	/*
-	 * public void update(){ //something to do with buffering }
-	 */
+			
+			int shipx=theship.x;		//pixel coords
+			int shipy=theship.y;
+			int shipwidth=theship.width;		//size, in pixels
+			int shipheight=theship.height;
+			int tilesize=theship.tilesize;		//tilesize in pixels
+			Image shipImage=theship.defaultImage;
+			
+			int imgh = shipImage.getHeight(this);
+			int imgw = shipImage.getWidth(this); // getting the size of image
+											// itself to be able to resize
+
+			float scalex = (float) ((shipwidth + .0) / (imgw + .0)); // scaling stuff
+			float scaley = (float) ((shipheight + .0) / (imgh + .0));
+
+			AffineTransform newform = new AffineTransform();
+			// use this for rotating, scaling, transforming ect
+
+			float degreesToRadians = (float) (Math.PI / 180);
+			float degreemeasure = theship.rotation;
+			degreemeasure = degreemeasure + degreesToRadians;
+			newform.setToRotation(degreemeasure, theship.x + .5 * theship.width,theship.y + .5 * theship.height);
+			newform.translate(theship.x, theship.y); // X AND Y ARE NOT COORDINATES, 
+			newform.scale(scalex, scaley); // size rescaling
+			
+			
+			off.drawImage(shipImage, newform, this);
+			
+			if(theship.showrooms==true){
+
+				for(int a=0;a<roomnum;a++){
+					
+					int localx=rooms.get(a).localXCoord;//grid point in ship
+					int localy=rooms.get(a).localYCoord;
+					int width=rooms.get(a).tileWidth;	//grid length/height
+					int height=rooms.get(a).tileHeight;
+					Room currentRoom=rooms.get(a);
+					
+					currentRoom.x=localx*tilesize+theship.x+theship.centerx;
+					currentRoom.y=localy*tilesize+theship.y+theship.centery;
+					currentRoom.width=theship.tilesize*width;
+					currentRoom.height=theship.tilesize*height;
+					off.setColor(Color.DARK_GRAY);
+					off.fillRect(currentRoom.x, currentRoom.y, currentRoom.width, currentRoom.height);;
+					off.setColor(Color.WHITE);
+				}
+		}
+		}
+	}
 	public void drawList(Graphics2D off, ArrayList<cosmeticSprite> list) {
 		int tempSize = list.size(); // we're doing forloops with temp variables
 									// for preformance
@@ -146,7 +199,16 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 	public void init() {
 		setSize(windowsizex, windowsizey);
 		setBackground(Color.WHITE);
-
+		
+		ship playersShip;
+		try {
+			playersShip = new playerShip();
+			playersShip.x=200;
+			playersShip.y=200;
+			gameController.shipList.add(playersShip);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		addKeyListener(this); // add listeners here
 		addMouseListener(this);
 	}
@@ -231,6 +293,7 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 		Graphics2D off = (Graphics2D) offscreen.getGraphics();
 
 		drawList(off, gameController.cosmeticList);
+		this.drawShip(off);
 		// we're going to use graphics 2d to do all our painting instead of just
 		// graphics
 		/*
@@ -260,7 +323,8 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 				// update loop
 
 				controller.excecuteController();	//
-
+				
+				
 				repaint(); // end of run method
 				Thread.sleep(35);
 				Thread.yield();
