@@ -17,16 +17,18 @@ public class playerShip extends ship{
 		this.tilesize=10;
 		
 		Room r1=new Room(0,2,4,6);
-		this.roomArray.add(r1);
+		this.addRoom(r1);
 
 		Room r2=new Room(4,0,4,6);
-		this.roomArray.add(r2);
+		this.addRoom(r2);
 		Room r3=new Room(8,2,4,6);
-		this.roomArray.add(r3);
+		this.addRoom(r3);
 		
 		baisicUnit unit1=new baisicUnit(5,5);
 		baisicUnit unit2=new baisicUnit(6,4);
-		this.unitList.add(unit1);
-		this.unitList.add(unit2);
+		this.addUnit(unit1);
+		this.addUnit(unit2);
+		
+		system shield=new shieldSystem(1,5);
 	}
 }

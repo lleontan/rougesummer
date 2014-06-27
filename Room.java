@@ -9,7 +9,7 @@ public class Room extends cosmeticSprite{
 	//adjacent they should form a door
 	
 	//we need a filler whitespace for room backgrounds
-	public int health,oxy,oxyChange;
+	public int oxy,oxyChange;
 	public int disabled=0;		//
 	public int fireLevel=0;		//amount of fire in a room
 	public int tileWidth=1,tileHeight=1;	//size in tiles
