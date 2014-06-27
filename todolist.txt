@@ -1,0 +1,14 @@
+hello,
+This is our to do list,
+in the order of priorities
+
+
+combat scenario framework(start,turn based combat, end)
+menus framework
+graphics
+systems framework
+unit actions(and the coordinate point system)
+unit ai's
+enemy ai's
+world/scenario generation
+double buffering
