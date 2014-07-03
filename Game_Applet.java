@@ -49,6 +49,24 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 	public Game_Applet() {
 		
 	}
+	public void drawStatPanel(ArrayList<statPanel>list,Graphics2D off){
+		int listsize=list.size();
+		for(int a=0;a<listsize;a++){
+			statPanel p=list.get(a);
+			int strListsize=p.textArray.size();
+			for(int b=0;b<strListsize;b++){
+			cosmeticText t=p.textArray.get(b);
+			String cos = t.text;
+			
+			int x1 = t.x; // temp variables
+			int y1 = t.y;
+			
+			off.drawString(cos, x1, y1);
+			}
+			
+			this.drawList(off, p.imageArray);
+		}
+	}
 	public void drawShip(Graphics2D off){
 		for(int b=0;b<gameController.shipList.size();b++){
 		ArrayList<Room> rooms=gameController.shipList.get(b).roomArray;
@@ -222,10 +240,17 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 		setBackground(Color.WHITE);
 		
 		ship playersShip;
+		statPanel uiPanel=new statPanel();
+		String str="health "+100;
+		
+		uiPanel.textArray.get(0).text=str;
+		uiPanel.x=100;
+		uiPanel.y=400;
+		gameController.UIPanelList.add(uiPanel);
 		try {
 			playersShip = new playerShip();
-			playersShip.x=200;
-			playersShip.y=200;
+			playersShip.x=50;
+			playersShip.y=230;
 			gameController.shipList.add(playersShip);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -315,6 +340,7 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 
 		drawList(off, gameController.cosmeticList);
 		this.drawShip(off);
+		this.drawStatPanel(gameController.UIPanelList, off);
 		// we're going to use graphics 2d to do all our painting instead of just
 		// graphics
 		/*

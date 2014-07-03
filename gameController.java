@@ -16,6 +16,7 @@ public class gameController {
 	static public ArrayList<cosmeticSprite> cosmeticList = new ArrayList<cosmeticSprite>(); // this is our arraylist of cosmetic battlefield damage(blown up trees)
 	static public ArrayList <cosmeticSprite>tempCosemeticList = new ArrayList<cosmeticSprite>(); // arraylist of temporary battle damage(bullet holes, explosions)
 	static public ArrayList<ship> shipList=new ArrayList<ship>();		//ships, ship crews and rooms are inside the ships in this arraylist
+	static public ArrayList<statPanel> UIPanelList=new ArrayList<statPanel>();
 	public static int namecount = 0;// current name index,
 
 	public static int findListDistance(ArrayList<Unit> list, ArrayList<Unit> targetList,int unitIndex) {

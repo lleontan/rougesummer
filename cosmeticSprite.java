@@ -19,9 +19,6 @@ public class cosmeticSprite {
 	public int occupytype=0;//1 is normal,2 is air, 3 is
 	public boolean isOccupied=false;//if a unit occupies it is true
 	
-	public Image altSprites[] = new Image[4];		//
-	public String altSpritesPath[] = new String[4];
-
 	public float rotation = 0;
 	public int targetname, enemytargetname;
 	public String displayname = "asdf";
