@@ -15,7 +15,7 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 public class Game_Applet extends Applet implements Runnable, KeyListener,MouseListener {
-	int windowsizex = 700; // window sizes
+	public static int windowsizex = 700; // window sizes
 	public static int windowsizey = 600;
 	Unit selectedUnit;
 	public static void deletePrefab(ArrayList<cosmeticSprite> list, int unitname) {
@@ -29,10 +29,8 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 		}
 	}
 
-	public static void Instantiate(ArrayList<cosmeticSprite> List,cosmeticSprite obj) {
-		// USE THIS TO CREATE OBJECTS
+	public static void Instantiate(ArrayList List,cosmeticSprite obj) {
 		cosmeticSprite spri = obj;
-
 		spri.targetname = gameController.getNewName();
 		List.add(spri);
 	}
@@ -65,7 +63,6 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 			off.drawString(cos, x1, y1);
 			
 			}
-			
 			this.drawList(off, p.imageArray);
 		}
 	}
@@ -92,7 +89,6 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 			float scaley = (float) ((shipheight + .0) / (imgh + .0));
 
 			AffineTransform newform = new AffineTransform();
-			// use this for rotating, scaling, transforming ect
 
 			float degreesToRadians = (float) (Math.PI / 180);
 			float degreemeasure = theship.rotation;
@@ -185,9 +181,8 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 				cos.rotation = 0;
 
 				newform.translate(x1, y1); // X AND Y ARE NOT COORDINATES, 
-				newform.scale(scalex, scaley); // size rescaling
+				newform.scale(scalex, scaley); 
 				off.drawImage(img, newform, this);
-				// off.drawImage(img,x1, y1, this);
 			
 		}
 	}
@@ -208,18 +203,6 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 			
 		}
 	}
-
-	public float findDistance(ArrayList list, ArrayList targetList,
-			int shooterName, int targetName) {
-		Unit shooter = (Unit) list.get(shooterName);
-		Unit targetSol = (Unit) list.get(targetName);
-		float distance = (float) (Math.sqrt(Math
-				.pow(shooter.x - targetSol.x, 2)
-				+ Math.pow(shooter.y - targetSol.y, 2)));
-
-		return distance;
-	}
-
 	public int findname(ArrayList list, String findString) {
 		// scans through the list for something named the string and returns the address
 		// -1 for nothing
@@ -248,30 +231,20 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 		uiPanel.x=100;
 		uiPanel.y=400;
 		
-		
-		gameController.UIPanelList.add(uiPanel);
+		this.Instantiate(gameController.UIPanelList, uiPanel);
 		try {
 			playersShip = new playerShip();
 			playersShip.x=50;
 			playersShip.y=230;
-			gameController.shipList.add(playersShip);
+			this.Instantiate(gameController.shipList, playersShip);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		addKeyListener(this); // add listeners here
 		addMouseListener(this);
 	}
-
-	@Override
-	public void keyPressed(KeyEvent key) {
-	}
-
-	@Override
-	public void keyReleased(KeyEvent key) {
-
-	}
-
-	@Override
+	public void keyPressed(KeyEvent key) {}
+	public void keyReleased(KeyEvent key) {}
 	public void keyTyped(KeyEvent key) {
 		char typed=key.getKeyChar();
 		if(selectedUnit!=null){
@@ -390,12 +363,9 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 
 	@Override
 	public void start() {
-
 		Thread th = new Thread(this);
 		th.start();
 	}
-
-	@Override
 	public void stop() {
 	}
 }
