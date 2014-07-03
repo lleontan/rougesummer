@@ -58,10 +58,12 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 			cosmeticText t=p.textArray.get(b);
 			String cos = t.text;
 			
-			int x1 = t.x; // temp variables
-			int y1 = t.y;
+			int x1 = t.x+p.x; // temp variables
+			int y1 = t.y+p.y;
 			
+			off.setColor(Color.BLACK);
 			off.drawString(cos, x1, y1);
+			
 			}
 			
 			this.drawList(off, p.imageArray);
@@ -245,6 +247,8 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 		//uiPanel.textArray.add(txt1);
 		uiPanel.x=100;
 		uiPanel.y=400;
+		
+		
 		gameController.UIPanelList.add(uiPanel);
 		try {
 			playersShip = new playerShip();

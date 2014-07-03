@@ -11,5 +11,7 @@ String str="health "+100;
 		imageArray=new ArrayList<cosmeticSprite>();
 		cosmeticText txt1=new cosmeticText();
 		txt1.text=str;
+		txt1.y+=100;
+		textArray.add(txt1);
 	}
 }
