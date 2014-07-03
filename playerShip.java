@@ -29,6 +29,6 @@ public class playerShip extends ship{
 		this.addUnit(unit1);
 		this.addUnit(unit2);
 		
-		system shield=new shieldSystem(1,5);
+		system shield=new shieldSystem(1,5,0);
 	}
 }
