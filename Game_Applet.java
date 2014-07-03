@@ -241,9 +241,8 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 		
 		ship playersShip;
 		statPanel uiPanel=new statPanel();
-		String str="health "+100;
 		
-		uiPanel.textArray.get(0).text=str;
+		//uiPanel.textArray.add(txt1);
 		uiPanel.x=100;
 		uiPanel.y=400;
 		gameController.UIPanelList.add(uiPanel);

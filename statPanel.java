@@ -6,5 +6,10 @@ public class statPanel extends cosmeticSprite{
 	ArrayList<cosmeticText> textArray;
 	ArrayList<cosmeticSprite> imageArray;
 	statPanel(){
+String str="health "+100;
+		textArray=new ArrayList<cosmeticText>();
+		imageArray=new ArrayList<cosmeticSprite>();
+		cosmeticText txt1=new cosmeticText();
+		txt1.text=str;
 	}
 }
