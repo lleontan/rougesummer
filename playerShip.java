@@ -3,7 +3,7 @@ import java.io.IOException;
 
 public class playerShip extends ship{
 	public playerShip() throws IOException{
-		this.assetPath="C:\\Users\\Leon Tan\\git\\rougesummer\\sprites\\Tank1.jpg";
+		this.assetPath="sprites/Tank1.jpg";
 		this.defaultImage=this.get_image(this.assetPath);
 		
 		

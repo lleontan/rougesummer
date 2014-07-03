@@ -33,6 +33,7 @@ public class cosmeticSprite {
 	public Image get_image(String url) throws IOException {
 		// gets an image using a given url, can take from internet or file
 		// directory
+		//matts mighty skill is making this use local files stored in sprites/[filename]
 		File file = new File(url);
 		java.net.URL f = new File(url).toURI().toURL();
 		Image returnImage = ImageIO.read(file);
