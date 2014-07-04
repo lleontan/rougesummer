@@ -233,6 +233,11 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 		
 		this.Instantiate(gameController.UIPanelList, uiPanel);
 		try {
+			enemyShip1 eShip=new enemyShip1();
+			eShip.x=300;
+			eShip.y=200;
+			this.Instantiate(gameController.shipList, eShip);
+			
 			playersShip = new playerShip();
 			playersShip.x=50;
 			playersShip.y=230;

@@ -83,7 +83,6 @@ public abstract class Unit extends cosmeticSprite {
 				break;
 			}
 		}
-
 		return theta;
 	}
 
