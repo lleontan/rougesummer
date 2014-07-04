@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.TreeMap;
 
 
-
 public abstract class ship extends cosmeticSprite {
 	//we may or may not need to have it extend cosmetic sprite
 	public int roomindex=0,unitindex=0,systemindex=0;
@@ -26,6 +25,10 @@ public abstract class ship extends cosmeticSprite {
 		//at the end of each turn, this is called,
 		//changes Oxy,resets unit AP, regens power & mana, implements statuses,ect
 		}
+
+	public void init(){
+		this.targetname=gameController.shipList.size();
+	}
 	public void attackRoom(ship theship,int damage,Room theroom){
 		int difference=theship.shield-damage;
 		theship.shield=difference;

@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class statPanel extends cosmeticSprite{
 	//a panel is baisically thing that contains UI info for easy use
 	//this one will contain a player health information, remaining power,
+	//Right now the code for this is kinda shit. we need to rewrite this.
 	ArrayList<cosmeticText> textArray;
 	ArrayList<cosmeticSprite> imageArray;
 	statPanel(){
