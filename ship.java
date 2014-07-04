@@ -7,7 +7,7 @@ import java.util.TreeMap;
 public abstract class ship extends cosmeticSprite {
 	//we may or may not need to have it extend cosmetic sprite
 	public int roomindex=0,unitindex=0,systemindex=0;
-	public int shield=0,shieldRegen=1;		//current shield strength,regen time in turns
+	public int shield=0;		//current shield strength,regen time in turns
 	public int power=10,maxPower=10, powerRegen;//we may or may not use power regen					//system power
 	public int mana,manaClips,manaClipCharge;			//mana battery system because why not. (I'll explain how this works later)
 	public int health=20;
