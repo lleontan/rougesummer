@@ -19,6 +19,7 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 	public static int windowsizey = 600;
 	Unit selectedUnit;
 	public static void deletePrefab(ArrayList<cosmeticSprite> list, int unitname) {
+		//given a list and a name for something in the arraylist, this will delete that thing from the arraylist
 		int size = list.size();
 		for (int a = 0; a < size; a++) {
 			cosmeticSprite spri =list.get(a);
@@ -42,12 +43,12 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 
 	public gameController controller = new gameController();
 	Font font1 = new Font("consolas", Font.PLAIN, 24); // font
-	Image offscreen; // offscreen is for buffering stuff
+	Image offscreen; // offscreen is for buffering stuff, apperently not implimented yet
 
 	public Game_Applet() {
 		
 	}
-	public void drawStatPanel(ArrayList<statPanel>list,Graphics2D off){
+	public void drawStatPanel(ArrayList<statPanel>list,Graphics2D offscreen){
 		int listsize=list.size();
 		for(int a=0;a<listsize;a++){
 			statPanel p=list.get(a);
@@ -59,14 +60,14 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 			int x1 = t.x+p.x; // temp variables
 			int y1 = t.y+p.y;
 			
-			off.setColor(Color.BLACK);
-			off.drawString(cos, x1, y1);
+			offscreen.setColor(Color.BLACK);
+			offscreen.drawString(cos, x1, y1);
 			
 			}
-			this.drawList(off, p.imageArray);
+			this.drawList(offscreen, p.imageArray);
 		}
 	}
-	public void drawShip(Graphics2D off){
+	public void drawShip(Graphics2D offscreen){
 		for(int b=0;b<gameController.shipList.size();b++){
 		ArrayList<Room> rooms=gameController.shipList.get(b).roomArray;
 		ship theship=gameController.shipList.get(b);
@@ -90,15 +91,14 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 
 			AffineTransform newform = new AffineTransform();
 
-			float degreesToRadians = (float) (Math.PI / 180);
-			float degreemeasure = theship.rotation;
-			degreemeasure = degreemeasure + degreesToRadians;
+			float degreemeasure = (float) Math.toRadians(theship.rotation);
+			//this is reference code for later, they do nothing as of right now
 			newform.setToRotation(degreemeasure, theship.x + .5 * theship.width,theship.y + .5 * theship.height);
-			newform.translate(theship.x, theship.y); // X AND Y ARE NOT COORDINATES, 
+			newform.translate(shipx,shipy); // X AND Y ARE NOT COORDINATES, 
 			newform.scale(scalex, scaley); // size rescaling
 			
 			
-			off.drawImage(shipImage, newform, this);
+			offscreen.drawImage(shipImage, newform, this);
 			
 			if(theship.showrooms==true){
 
@@ -114,11 +114,11 @@ public class Game_Applet extends Applet implements Runnable, KeyListener,MouseLi
 					currentRoom.y=localy*tilesize+theship.y+theship.centery;
 					currentRoom.width=theship.tilesize*width;
 					currentRoom.height=theship.tilesize*height;
-					off.setColor(Color.DARK_GRAY);
-					off.fillRect(currentRoom.x, currentRoom.y, currentRoom.width, currentRoom.height);;
-					off.setColor(Color.WHITE);
+					offscreen.setColor(Color.DARK_GRAY);
+					offscreen.fillRect(currentRoom.x, currentRoom.y, currentRoom.width, currentRoom.height);;
+					offscreen.setColor(Color.WHITE);
 				}
-				drawListInShipGrid(off,theship.unitList,b);
+				drawListInShipGrid(offscreen,theship.unitList,b);
 		}
 		}
 	}
